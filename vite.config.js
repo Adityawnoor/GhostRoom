@@ -39,16 +39,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          motion: ['framer-motion'],
-          emoji: ['@emoji-mart/react', '@emoji-mart/data'],
-        }
-      }
-    }
   },
   server: { port: 5173, host: true },
   optimizeDeps: {
