@@ -1,0 +1,20 @@
+{
+  "name": "GhostRoom",
+  "short_name": "GhostRoom",
+  "description": "Secure. Temporary. Zero Trace. Encrypted chat and file sharing.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#7c3aed",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/ghost-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "en"
+}
