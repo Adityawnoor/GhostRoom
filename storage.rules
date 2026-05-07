@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper: Check if authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: Validate file type (block dangerous types)
+    function isSafeFile() {
+      let blocked = ['application/x-executable', 'application/x-msdownload', 'application/x-sh'];
+      return !(request.resource.contentType in blocked);
+    }
+
+    // Helper: Check file size (10GB max for Pro, 100MB for free)
+    function withinSizeLimit() {
+      return request.resource.size <= 10 * 1024 * 1024 * 1024; // 10GB absolute max
+    }
+
+    // ─── ROOM FILES ──────────────────────────────────────────
+    match /rooms/{roomId}/files/{uploadId}/{fileName} {
+      // Read: Any authenticated user (download URLs are pre-signed anyway)
+      allow read: if isAuthenticated();
+
+      // Write: Authenticated, safe file, within size
+      allow write: if isAuthenticated()
+        && isSafeFile()
+        && withinSizeLimit()
+        && request.auth.uid != null;
+
+      // Delete: Only authenticated users (cleanup)
+      allow delete: if isAuthenticated();
+    }
+
+    // ─── USER AVATARS ─────────────────────────────────────────
+    match /avatars/{userId}/{filename} {
+      allow read: if true; // Public avatars
+      allow write: if isAuthenticated()
+        && request.auth.uid == userId
+        && request.resource.size <= 5 * 1024 * 1024 // 5MB max
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Block everything else
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
