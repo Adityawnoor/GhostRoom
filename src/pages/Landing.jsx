@@ -227,7 +227,7 @@ export default function Landing() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <div className="hero-announce">
               <span className="hero-announce-tag">New</span>
-              3GB file sharing + AES-256 encryption now live →
+              10GB file sharing + AES-256 encryption now live →
             </div>
           </motion.div>
 

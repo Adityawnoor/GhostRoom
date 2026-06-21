@@ -232,8 +232,8 @@ const SmartUploadZone = ({ onFilesSelected, uploading, uploadProgress }) => {
   }, [onFilesSelected]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop, multiple: true, maxSize: 3 * 1024 * 1024 * 1024,
-    onDropRejected: () => toast.error('File too large — max 3GB'),
+    onDrop, multiple: true, maxSize: 10 * 1024 * 1024 * 1024,
+    onDropRejected: () => toast.error('File too large — max 10GB'),
   });
 
   return (
@@ -250,7 +250,7 @@ const SmartUploadZone = ({ onFilesSelected, uploading, uploadProgress }) => {
           </div>
         )}
         <div className="drop-zone-hint text-muted">
-          ≤ 5MB: instant (free) • Up to 3GB: via cloud storage
+          ≤ 5MB: instant (free) • Up to 10GB: via cloud storage
         </div>
       </div>
     </div>
@@ -415,7 +415,7 @@ export default function Room() {
           toast.error(`Failed: ${file.name}`);
         }
       } else {
-        // LARGE FILES (>5MB up to 3GB): Firebase Storage (needs Blaze)
+        // LARGE FILES (>5MB up to 10GB): Firebase Storage (needs Blaze)
         try {
           const uploadId = await createUploadRecord(roomId, user.uid, {
             name: file.name, size: file.size, type: file.type, chunkCount: Math.ceil(file.size / (5*1024*1024))
@@ -660,7 +660,7 @@ export default function Room() {
                 </button>
               </div>
             </div>
-            <div className="encryption-note">🔐 Encrypted · 📎 Files up to 3GB · 🎬 Stream video URLs</div>
+            <div className="encryption-note">🔐 Encrypted · 📎 Files up to 10GB · 🎬 Stream video URLs</div>
           </form>
 
           {/* Video Modal */}
