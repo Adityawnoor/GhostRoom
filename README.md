@@ -1,6 +1,6 @@
 # 👻 GhostRoom — Secure. Temporary. Zero Trace.
 
-> A billion-dollar-quality, privacy-first SaaS platform combining Telegram + Snapchat + WeTransfer + Google Drive + Slack.
+A privacy-first real-time communication and file-sharing platform
 
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)](https://react.dev)
